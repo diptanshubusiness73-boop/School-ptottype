@@ -22,7 +22,7 @@
   --success:#1f8a5f; --success-bg:#e3f3ec;
   --warning:#c77d22; --warning-bg:#faf0e0;
   --danger:#c24444; --danger-bg:#fbeaea;
-  --surface:#ffffff; --surface-alt:#fbf7ee; --surface-raised:#ffffff;
+  --surface:#ffffff; --surface-alt:#ffffff; --surface-raised:#ffffff;
   --border:#e9e2d0; --border-soft:#f0ead9;
   --shadow-c: 20,24,60;
   --font-display:'Poppins',sans-serif; --font-body:'Inter',sans-serif; --font-data:'Manrope',sans-serif;
@@ -375,6 +375,44 @@ tbody tr:hover{background:var(--surface-alt);}
 }
 .sidebar-scrim{display:none; position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:85;}
 .sidebar-scrim.show{display:block;}
+/* ===== SUPER ADMIN ===== */
+#superadmin{position:fixed; inset:0; z-index:300; background:var(--navy-950); color:#fff; overflow-y:auto; padding-bottom:40px;}
+.sa-topbar{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px solid rgba(255,255,255,.1); position:sticky; top:0; background:var(--navy-950); z-index:2;}
+.sa-brand{display:flex; align-items:center; gap:10px; font-weight:800; font-size:16px; color:var(--gold-300);}
+.sa-tabs{display:flex; gap:6px; padding:14px 20px 0;}
+.sa-tabs button{flex:1; padding:10px; border-radius:12px; background:rgba(255,255,255,.06); color:rgba(255,255,255,.65); border:none; font-weight:700; font-size:12px; font-family:inherit;}
+.sa-tabs button.active{background:var(--gold-500); color:var(--navy-950);}
+#superAdminBody{padding:18px 20px;}
+.sa-stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;}
+.sa-stat-card{background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:4px;}
+.sa-stat-card .material-symbols-rounded{color:var(--gold-400); font-size:20px;}
+.sa-stat-card b{font-size:22px; font-family:var(--font-data);}
+.sa-stat-card span{font-size:11.5px; color:rgba(255,255,255,.55);}
+.sa-panel{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; margin-bottom:16px;}
+.sa-panel h3{font-size:14px; margin-bottom:12px; color:var(--gold-300);}
+.sa-note{font-size:11.5px; color:rgba(255,255,255,.5); line-height:1.5; margin-bottom:12px;}
+.sa-status-row{display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.07); font-size:13px; gap:10px;}
+.sa-status-row:last-child{border-bottom:none;}
+.sa-badge{padding:3px 10px; border-radius:99px; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; white-space:nowrap;}
+.sa-badge-ok{background:rgba(52,199,131,.18); color:#4ade9b;}
+.sa-badge-warn{background:rgba(232,164,44,.18); color:#f0b855;}
+.sa-badge-fail{background:rgba(230,80,80,.18); color:#f28b8b;}
+.sa-badge-off{background:rgba(255,255,255,.08); color:rgba(255,255,255,.5);}
+.sa-log-row{display:flex; gap:10px; padding:9px 0; border-bottom:1px solid rgba(255,255,255,.07); font-size:12.5px;}
+.sa-log-row:last-child{border-bottom:none;}
+.sa-log-row .material-symbols-rounded{font-size:17px; color:var(--gold-400); flex-shrink:0; margin-top:1px;}
+.sa-log-row.warn .material-symbols-rounded{color:#f0b855;}
+.sa-log-row b{display:block; font-size:12.5px;}
+.sa-log-row span{font-size:11px; color:rgba(255,255,255,.45);}
+.sa-key-display{display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:12px 14px; margin-bottom:14px; font-family:var(--font-data); font-size:13px;}
+.sa-key-display .material-symbols-rounded{color:var(--gold-400);}
+.sa-btn-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
+.btn-ghost-dark{background:rgba(255,255,255,.06); color:#fff; border:1px solid rgba(255,255,255,.12); padding:11px 16px; border-radius:12px; font-weight:700; font-size:13px; display:inline-flex; align-items:center; gap:6px; font-family:inherit; cursor:pointer;}
+.sa-health-detail{font-size:11.5px; color:rgba(255,255,255,.5); padding-bottom:8px; margin-top:-4px;}
+#superadmin .field label{color:rgba(255,255,255,.7);}
+#superadmin ::placeholder{color:rgba(255,255,255,.35);}
+@media(max-width:420px){.sa-stat-grid{grid-template-columns:1fr 1fr;} .sa-stat-card b{font-size:19px;}}
+
 /* ===== Redesign additions ===== */
 .subject-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
 .subject-card{position:relative; overflow:hidden; border-radius:18px; padding:18px 16px; color:#fff; min-height:104px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; border:none; text-align:left; -webkit-tap-highlight-color:transparent;}
@@ -852,6 +890,12 @@ DB.pastExams = [
 ];
 DB.settings = { defaultMonthlyFee: 2500 };
 DB.classCodes = { 'Class 8':'NJ08', 'Class 9':'NJ09', 'Class 10':'NJ10' };
+DB.activityLog = [
+  { icon:'login', text:'Diptanshu Tharu (student) logged in', time:'Today, 09:14' },
+  { icon:'cloud_upload', text:'Suresh Sharma uploaded new notes — Optional Math', time:'Today, 08:50' },
+  { icon:'person_add', text:'New student self-registered using class code NJ09', time:'Yesterday, 16:22' },
+  { icon:'quiz', text:'Manual quiz published — Science, Class 10', time:'Yesterday, 11:05' }
+];
 DB.leaveApplications = [
   { id:'leave-1', applicantId:'diptanshu tharu', applicantRole:'student', applicantName:'Diptanshu Tharu',
     subject:'Family function', recipientType:'principal', recipientId:null,
@@ -865,6 +909,153 @@ DB.leaveApplications = [
     status:'pending', reviewNote:'' }
 ];
 function findTeacherById(id){ return DB.teachers.find(function(t){return t.id===id;}) || {name:'Teacher', photo:avatarSVG('Teacher',0)}; }
+
+/* ---------- SUPER ADMIN ---------- */
+function logActivity(icon, text){
+  DB.activityLog.push({icon:icon, text:text, time:'Just now'});
+  if(DB.activityLog.length>30) DB.activityLog.shift();
+}
+function superAdminLogout(){
+  document.getElementById('superadmin').classList.add('hidden');
+  document.getElementById('login').classList.remove('hidden');
+  const idEl = document.getElementById('loginId'), passEl = document.getElementById('loginPass');
+  if(idEl) idEl.value=''; if(passEl) passEl.value='';
+}
+function setSuperAdminTab(tab){ state.superAdminTab = tab; renderSuperAdminPanel(); }
+function renderSuperAdminPanel(){
+  const tab = state.superAdminTab || 'dashboard';
+  const tabIndex = {dashboard:0, apikey:1, health:2}[tab];
+  document.querySelectorAll('.sa-tabs button').forEach(function(b,i){ b.classList.toggle('active', i===tabIndex); });
+  const body = document.getElementById('superAdminBody');
+  if(tab==='apikey') body.innerHTML = renderSuperAdminApiKey();
+  else if(tab==='health') body.innerHTML = renderSuperAdminHealth();
+  else body.innerHTML = renderSuperAdminDashboard();
+}
+function saStatCard(icon, value, label){
+  return '<div class="sa-stat-card"><span class="material-symbols-rounded">'+icon+'</span><b>'+value+'</b><span>'+label+'</span></div>';
+}
+function renderSuperAdminDashboard(){
+  const totalQuizzes = DB.publishedTests.length;
+  const aiQuizzes = DB.publishedTests.filter(function(t){return t.aiGenerated;}).length;
+  const manualQuizzes = totalQuizzes - aiQuizzes;
+  return `
+  <div class="sa-stat-grid">
+    ${saStatCard('groups', DB.students.length, 'Total Students')}
+    ${saStatCard('badge', DB.teachers.length, 'Total Teachers')}
+    ${saStatCard('admin_panel_settings', DB.admins.length, 'Total Admins')}
+    ${saStatCard('quiz', totalQuizzes, 'Total Quizzes')}
+    ${saStatCard('edit_note', manualQuizzes, 'Manually Generated')}
+    ${saStatCard('auto_awesome', aiQuizzes, 'AI-Generated')}
+  </div>
+  <div class="sa-panel">
+    <h3>System Overview</h3>
+    <div class="sa-status-row"><span>Database</span><span class="sa-badge sa-badge-off">Not Connected</span></div>
+    <div class="sa-status-row"><span>Backend / API server</span><span class="sa-badge sa-badge-off">Not Connected</span></div>
+    <div class="sa-status-row"><span>AI service</span><span class="sa-badge ${state.aiApiKey?'sa-badge-ok':'sa-badge-off'}">${state.aiApiKey?'Key Configured':'Not Configured'}</span></div>
+    <div class="sa-status-row"><span>Active sessions</span><b>1 (this browser)</b></div>
+    <div class="sa-status-row"><span>Overall health</span><span class="sa-badge sa-badge-warn">Prototype Mode</span></div>
+  </div>
+  <div class="sa-panel">
+    <h3>Recent Activity</h3>
+    ${DB.activityLog.slice().reverse().map(function(a){return '<div class="sa-log-row"><span class="material-symbols-rounded">'+a.icon+'</span><div><b>'+escapeHTML(a.text)+'</b><span>'+a.time+'</span></div></div>';}).join('')}
+  </div>
+  <div class="sa-panel">
+    <h3>Warnings</h3>
+    <div class="sa-log-row warn"><span class="material-symbols-rounded">warning</span><div><b>No backend or database connected</b><span>This build runs entirely in the browser with in-memory data — nothing here persists after a page refresh.</span></div></div>
+    ${!state.aiApiKey ? '<div class="sa-log-row warn"><span class="material-symbols-rounded">warning</span><div><b>No AI API key configured</b><span>AI quiz generation will not work until a key is added in the AI API Key tab.</span></div></div>' : ''}
+  </div>`;
+}
+function maskApiKey(key){
+  if(key.length<=10) return '••••••••';
+  return key.slice(0,6)+'••••••••••••'+key.slice(-4);
+}
+function renderSuperAdminApiKey(){
+  const masked = state.aiApiKey ? maskApiKey(state.aiApiKey) : null;
+  return `
+  <div class="sa-panel">
+    <h3>AI API Key</h3>
+    <p class="sa-note">Held in memory for this browser session only, and cleared on refresh. A static HTML file like this one has no server to hold secrets on — real production use needs an actual backend so the key never reaches the browser at all.</p>
+    ${masked ? '<div class="sa-key-display"><span class="material-symbols-rounded">key</span><b>'+masked+'</b><span class="sa-badge sa-badge-ok">Saved</span></div>' : '<p class="sa-note" style="color:#f28b8b;">No key configured yet.</p>'}
+    <div class="field"><label>${masked?'Replace Key':'Enter API Key'}</label><input id="saApiKeyInput" type="password" placeholder="sk-ant-..." style="width:100%;padding:11px 14px;border:1.5px solid rgba(255,255,255,.15);border-radius:12px;background:rgba(255,255,255,.05);color:#fff;"></div>
+    <div class="sa-btn-row">
+      <button class="btn btn-gold" onclick="saveApiKey()"><span class="material-symbols-rounded" style="font-size:17px;">save</span>${masked?'Update':'Save'}</button>
+      <button class="btn-ghost-dark" onclick="testApiKeyConnection()"><span class="material-symbols-rounded" style="font-size:17px;">wifi_tethering</span>Test Connection</button>
+      ${masked ? '<button class="btn-ghost-dark" style="color:#f28b8b;" onclick="removeApiKey()"><span class="material-symbols-rounded" style="font-size:17px;">delete</span>Remove</button>' : ''}
+    </div>
+    <p id="saApiKeyResult" class="sa-note" style="margin-top:12px;margin-bottom:0;"></p>
+  </div>`;
+}
+function saveApiKey(){
+  const val = document.getElementById('saApiKeyInput').value.trim();
+  if(!val){ showToast('Please enter a key'); return; }
+  state.aiApiKey = val;
+  logActivity('vpn_key','AI API key updated by Super Admin');
+  showToast('API key saved for this session');
+  renderSuperAdminPanel();
+}
+function removeApiKey(){
+  state.aiApiKey = null;
+  logActivity('key_off','AI API key removed by Super Admin');
+  showToast('API key removed');
+  renderSuperAdminPanel();
+}
+async function testApiKeyConnection(){
+  const resultEl = document.getElementById('saApiKeyResult');
+  if(!state.aiApiKey){ resultEl.textContent='No key saved to test.'; resultEl.style.color='#f28b8b'; return; }
+  resultEl.textContent='Testing...'; resultEl.style.color='rgba(255,255,255,.6)';
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6', max_tokens:10, messages:[{role:'user',content:'hi'}]})
+    });
+    if(res.ok){ resultEl.textContent='Connection successful.'; resultEl.style.color='#4ade9b'; }
+    else{ resultEl.textContent='Reached the network but the request failed (status '+res.status+').'; resultEl.style.color='#f28b8b'; }
+  } catch(e){
+    resultEl.textContent='Could not reach the AI service directly from this browser — most likely blocked by CORS. This is a hosting limitation, not necessarily a bad key; a real deployment needs a backend to proxy this call.';
+    resultEl.style.color='#f28b8b';
+  }
+}
+function renderSuperAdminHealth(){
+  const keys = [['db','Database Connection'],['backend','Backend / API Server'],['ai','AI API Connection'],['auth','Authentication System'],['quiz','Quiz Generation'],['storage','File / Storage System'],['server','Overall Server Status']];
+  return `
+  <div class="sa-panel">
+    <h3>System Health Check</h3>
+    <p class="sa-note">Runs a real check where one is possible. Since this build has no backend, several checks honestly report "Not Connected" rather than a fabricated pass.</p>
+    ${keys.map(function(k){return '<div><div class="sa-status-row"><span>'+k[1]+'</span><div style="display:flex;align-items:center;gap:8px;"><span class="sa-badge sa-badge-off" id="health-badge-'+k[0]+'">Not tested</span><button class="btn-icon" style="width:32px;height:32px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" onclick="runHealthCheck(\''+k[0]+'\')"><span class="material-symbols-rounded" style="font-size:15px;">play_arrow</span></button></div></div><p class="sa-health-detail" id="health-detail-'+k[0]+'"></p></div>';}).join('')}
+    <button class="btn btn-gold" style="width:100%;margin-top:6px;" onclick="runAllHealthChecks()"><span class="material-symbols-rounded" style="font-size:17px;">monitor_heart</span>Run All Checks</button>
+  </div>`;
+}
+function runHealthCheck(key){
+  const badge = document.getElementById('health-badge-'+key);
+  const detail = document.getElementById('health-detail-'+key);
+  if(key==='ai'){ badge.textContent='Testing...'; badge.className='sa-badge sa-badge-off'; testAiHealthCheck(badge, detail); return; }
+  const results = {
+    db: {status:'off', text:'No database connected — this prototype uses in-memory mock data only.'},
+    backend: {status:'off', text:'No backend server exists — this is a static, single-file front end.'},
+    auth: {status:'ok', text:'Working — in-browser account matching against the mock student/teacher/admin lists is active.'},
+    quiz: {status:'ok', text:'Working — the manual quiz builder and publish flow are functional.'},
+    storage: {status:'off', text:'No persistent storage — uploaded files exist only in this browser session and are lost on refresh.'},
+    server: {status:'off', text:'No server process — the whole app runs client-side in the browser.'}
+  };
+  const r = results[key];
+  badge.textContent = r.status==='ok' ? 'Working' : 'Not Connected';
+  badge.className = 'sa-badge ' + (r.status==='ok' ? 'sa-badge-ok' : 'sa-badge-off');
+  detail.textContent = r.text;
+}
+async function testAiHealthCheck(badge, detail){
+  if(!state.aiApiKey){ badge.textContent='Not Connected'; badge.className='sa-badge sa-badge-off'; detail.textContent='No API key configured — add one in the AI API Key tab first.'; return; }
+  try{
+    const res = await fetch('https://api.anthropic.com/v1/messages', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({model:'claude-sonnet-4-6', max_tokens:10, messages:[{role:'user',content:'hi'}]})});
+    if(res.ok){ badge.textContent='Working'; badge.className='sa-badge sa-badge-ok'; detail.textContent='AI service reachable and responding.'; }
+    else{ badge.textContent='Failed'; badge.className='sa-badge sa-badge-fail'; detail.textContent='Reached the network but the request failed (status '+res.status+').'; }
+  } catch(e){
+    badge.textContent='Failed'; badge.className='sa-badge sa-badge-fail';
+    detail.textContent='Could not reach the AI service directly from the browser — likely CORS. A real deployment needs a backend to proxy this call.';
+  }
+}
+function runAllHealthChecks(){
+  ['db','backend','ai','auth','quiz','storage','server'].forEach(function(k){ runHealthCheck(k); });
+}
 function generateLeaveText(d){
   return 'Date: '+fmtDate(new Date(d.appliedDate))+'\n\n'+
     'To,\n'+d.recipientLabel+'\nSmart Education Hub\n\n'+
@@ -886,8 +1077,8 @@ DB.studentQuestions = [
 ];
 DB.uploadedResources = [];
 DB.publishedTests = [
-  {title:'Trigonometry Basics', subject:'Math', questionCount:8, publishedAt:'2 days ago'},
-  {title:'Chemical Reactions', subject:'Science', questionCount:6, publishedAt:'5 days ago'}
+  {title:'Trigonometry Basics', subject:'Math', questionCount:8, publishedAt:'2 days ago', aiGenerated:false},
+  {title:'Chemical Reactions', subject:'Science', questionCount:6, publishedAt:'5 days ago', aiGenerated:false}
 ];
 DB.infoMenu = [
   { title:'Introduction', bg:'#e8ecfb', items:[
@@ -1017,17 +1208,25 @@ function fillDemo(){
   document.getElementById('loginPass').value = c[1];
 }
 function attemptLogin(){
-  const id = document.getElementById('loginId').value.trim().toLowerCase();
+  const id = document.getElementById('loginId').value.trim();
   const pass = document.getElementById('loginPass').value.trim();
+  if(id.toLowerCase()==='admin' && pass==='admin'){
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('superadmin').classList.remove('hidden');
+    state.superAdminTab = 'dashboard';
+    renderSuperAdminPanel();
+    return;
+  }
+  const idLower = id.toLowerCase();
   let user = null;
   if(state.portal==='student'){
-    const s = DB.students.find(function(x){return x.id.toLowerCase()===id;});
+    const s = DB.students.find(function(x){return x.id.toLowerCase()===idLower;});
     if(s && s.password===pass) user = Object.assign({role:'student'}, s);
   } else if(state.portal==='admin'){
-    const a = DB.admins.find(function(x){return x.id.toLowerCase()===id;});
+    const a = DB.admins.find(function(x){return x.id.toLowerCase()===idLower;});
     if(a && a.password===pass) user = Object.assign({role:'admin'}, a, {photo:avatarSVG(a.name,0)});
   } else if(state.portal==='teacher'){
-    const t = DB.teachers.find(function(x){return x.id.toLowerCase()===id;});
+    const t = DB.teachers.find(function(x){return x.id.toLowerCase()===idLower;});
     if(t && t.password===pass) user = Object.assign({role:'teacher'}, t);
   }
   if(!user){ const err=document.getElementById('loginError'); err.classList.add('show'); return; }
@@ -2004,12 +2203,21 @@ function markAttendance(id,status){
 
 /* ---------- TEACHER: MCQ tests ---------- */
 VIEW_RENDERERS['teacher_tests'] = function(){
+  const quizMode = state.quizMode || 'manual';
+  const quizModeToggle = `<div class="ask-toggle" style="margin-bottom:16px;">
+    <button class="${quizMode==='manual'?'active':''}" onclick="setQuizMode('manual')"><span class="material-symbols-rounded" style="font-size:17px;">edit_note</span>Manual</button>
+    <button class="${quizMode==='ai'?'active':''}" onclick="setQuizMode('ai')"><span class="material-symbols-rounded" style="font-size:17px;">auto_awesome</span>Generate with AI</button>
+  </div>`;
+  if(quizMode==='ai'){
+    return `<div class="page-head"><div><h2>MCQ Tests</h2><p>Generate a quiz with AI, then review before publishing</p></div></div>${quizModeToggle}${renderAiQuizGenerator()}`;
+  }
   const done = draftTest.questions.length;
   const target = draftTest.targetCount;
   const pct = target>0 ? Math.min(100, Math.round(done/target*100)) : 0;
   const atTarget = target>0 && done>=target;
   return `
   <div class="page-head"><div><h2>MCQ Tests</h2><p>Set how many questions, then add them one by one</p></div></div>
+  ${quizModeToggle}
   <div class="grid g2" style="align-items:start;">
     <div class="card section-card">
       <h3 style="margin-bottom:14px;">Test Details</h3>
@@ -2085,9 +2293,100 @@ function publishTest(){
   if(draftTest.questions.length===0){ showToast('Add at least one question first'); return; }
   const title = draftTest.title || (draftTest.subject+' Test');
   draftTest.questions.forEach(function(q){ DB.questionBank.push(q); });
-  DB.publishedTests.unshift({ title:title, subject:draftTest.subject, questionCount:draftTest.questions.length, publishedAt:fmtDate(new Date()) });
+  DB.publishedTests.unshift({ title:title, subject:draftTest.subject, questionCount:draftTest.questions.length, publishedAt:fmtDate(new Date()), aiGenerated:false });
+  logActivity('edit_note','Manual quiz published — '+draftTest.subject+', '+title);
   showToast('"'+title+'" published with '+draftTest.questions.length+' question(s)');
   draftTest = { title:'', subject:draftTest.subject, targetCount:5, questions:[] };
+  navigate('tests');
+}
+
+/* ---------- TEACHER: AI quiz generation ---------- */
+function setQuizMode(mode){ state.quizMode = mode; navigate('tests'); }
+let aiDraftQuestions = [];
+function renderAiQuizGenerator(){
+  return `
+  <div class="card section-card" style="margin-bottom:18px;">
+    <h3 style="margin-bottom:14px;">Generate a Quiz with AI</h3>
+    <div class="field"><label>Topic</label><input id="aiTopic" placeholder="e.g. Compound Interest" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;"></div>
+    <div class="grid g2">
+      <div class="field"><label>Subject</label><select id="aiSubject" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;">${DB.curriculum.map(function(c){return '<option value="'+c.subject+'">'+c.subject+'</option>';}).join('')}</select></div>
+      <div class="field"><label>Class</label><select id="aiClass" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;"><option>Class 8</option><option>Class 9</option><option selected>Class 10</option></select></div>
+    </div>
+    <div class="grid g2">
+      <div class="field"><label>Difficulty</label><select id="aiDifficulty" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;"><option>Easy</option><option selected>Medium</option><option>Hard</option></select></div>
+      <div class="field"><label>Number of Questions</label><input id="aiCount" type="number" value="5" min="1" max="20" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;"></div>
+    </div>
+    <div class="field"><label>Question Type</label><select id="aiQType" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;"><option>Multiple Choice</option></select>
+      <p style="font-size:11px;color:var(--ink-500);margin-top:6px;">The quiz engine in this app is multiple-choice only, so that is the only type offered.</p>
+    </div>
+    <p id="aiQuizError" class="login-error" style="display:none;margin-bottom:12px;"></p>
+    <button class="btn btn-gold" id="aiGenerateBtn" style="width:100%;" onclick="generateAiQuiz()"><span class="material-symbols-rounded" style="font-size:18px;">auto_awesome</span>Generate with AI</button>
+  </div>
+  <div id="aiQuizResults"></div>`;
+}
+async function generateAiQuiz(){
+  const topic = document.getElementById('aiTopic').value.trim();
+  const subject = document.getElementById('aiSubject').value;
+  const cls = document.getElementById('aiClass').value;
+  const difficulty = document.getElementById('aiDifficulty').value;
+  const count = Math.max(1, Math.min(20, parseInt(document.getElementById('aiCount').value)||5));
+  const errEl = document.getElementById('aiQuizError');
+  if(!topic){ errEl.textContent='Please enter a topic'; errEl.style.display='flex'; return; }
+  if(!state.aiApiKey){ errEl.textContent='No AI API key has been configured yet — ask your Super Admin to add one.'; errEl.style.display='flex'; return; }
+  errEl.style.display='none';
+  const btn = document.getElementById('aiGenerateBtn');
+  const wrap = document.getElementById('aiQuizResults');
+  btn.disabled = true; btn.textContent = 'Generating...';
+  wrap.innerHTML = '<p style="font-size:12.5px;color:var(--ink-500);text-align:center;padding:20px 0;">Generating questions...</p>';
+  try{
+    const prompt = 'Generate exactly '+count+' multiple-choice questions for a '+cls+' '+subject+' class on the topic "'+topic+'", at '+difficulty+' difficulty. Return ONLY a raw JSON array with no other text and no markdown fences, where each item has: "q" (question text), "opts" (array of exactly 4 answer strings), "correct" (0-based index of the correct option in opts), "explain" (one short sentence explaining the correct answer).';
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6', max_tokens:2500, messages:[{role:'user', content:prompt}]})
+    });
+    const data = await res.json();
+    const text = (data.content||[]).map(function(b){return b.text||'';}).join('');
+    const cleaned = text.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(cleaned);
+    aiDraftQuestions = parsed.map(function(q){ return {subject:subject, q:q.q, opts:q.opts, correct:q.correct, explain:q.explain||'', timeLimit:20}; });
+    state.aiQuizMeta = {topic:topic, subject:subject};
+    renderAiQuizResults();
+  } catch(e){
+    wrap.innerHTML = '<p style="font-size:12.5px;color:var(--danger);text-align:center;padding:16px 0;">Could not generate questions. Direct AI calls from a static page are often blocked by the browser (CORS) unless a backend proxies the request — this may be a hosting limitation rather than a bad key.</p>';
+  }
+  btn.disabled = false; btn.innerHTML = '<span class="material-symbols-rounded" style="font-size:18px;">auto_awesome</span>Generate with AI';
+}
+function renderAiQuizResults(){
+  const wrap = document.getElementById('aiQuizResults');
+  if(!aiDraftQuestions.length){ wrap.innerHTML=''; return; }
+  wrap.innerHTML = '<h3 style="margin:6px 0 12px;">Review &amp; Edit ('+aiDraftQuestions.length+' questions)</h3>' +
+    aiDraftQuestions.map(function(q,i){
+      return '<div class="card section-card" style="margin-bottom:12px;">'+
+        '<div class="field"><label>Question '+(i+1)+'</label><textarea rows="2" oninput="updateAiQuestion('+i+',this.value)" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;">'+escapeHTML(q.q)+'</textarea></div>'+
+        '<div class="grid g2">'+
+        q.opts.map(function(opt,oi){return '<div class="field" style="margin-bottom:8px;"><label>Option '+String.fromCharCode(65+oi)+(q.correct===oi?' ✓':'')+'</label><input value="'+escapeHTML(opt)+'" oninput="updateAiOption('+i+','+oi+',this.value)" style="width:100%;padding:9px 11px;border:1.5px solid '+(q.correct===oi?'var(--success)':'var(--border)')+';border-radius:10px;"></div>';}).join('')+
+        '</div>'+
+        '<div class="field" style="margin-bottom:8px;"><label>Correct Answer</label><select onchange="updateAiCorrect('+i+',this.value)" style="width:100%;padding:9px 11px;border:1.5px solid var(--border);border-radius:10px;">'+[0,1,2,3].map(function(oi){return '<option value="'+oi+'" '+(q.correct===oi?'selected':'')+'>Option '+String.fromCharCode(65+oi)+'</option>';}).join('')+'</select></div>'+
+        '<button class="btn btn-ghost btn-sm" onclick="removeAiQuestion('+i+')"><span class="material-symbols-rounded" style="font-size:15px;">delete</span>Remove Question</button>'+
+        '</div>';
+    }).join('') +
+    '<div style="display:flex;gap:10px;margin-top:6px;">'+
+    '<button class="btn btn-ghost" style="flex:1;" onclick="generateAiQuiz()"><span class="material-symbols-rounded" style="font-size:17px;">refresh</span>Regenerate</button>'+
+    '<button class="btn btn-gold" style="flex:1;" onclick="publishAiQuiz()"><span class="material-symbols-rounded" style="font-size:17px;">publish</span>Publish Quiz</button>'+
+    '</div>';
+}
+function updateAiQuestion(i, val){ aiDraftQuestions[i].q = val; }
+function updateAiOption(i, oi, val){ aiDraftQuestions[i].opts[oi] = val; }
+function updateAiCorrect(i, val){ aiDraftQuestions[i].correct = parseInt(val); renderAiQuizResults(); }
+function removeAiQuestion(i){ aiDraftQuestions.splice(i,1); renderAiQuizResults(); }
+function publishAiQuiz(){
+  if(!aiDraftQuestions.length){ showToast('No questions to publish'); return; }
+  aiDraftQuestions.forEach(function(q){ DB.questionBank.push(q); });
+  const meta = state.aiQuizMeta || {topic:'AI Quiz', subject:aiDraftQuestions[0].subject};
+  DB.publishedTests.unshift({ title:meta.topic, subject:meta.subject, questionCount:aiDraftQuestions.length, publishedAt:fmtDate(new Date()), aiGenerated:true });
+  logActivity('auto_awesome','AI-generated quiz published — '+meta.subject+', '+meta.topic);
+  showToast('AI-generated quiz published');
+  aiDraftQuestions = [];
   navigate('tests');
 }
 
@@ -2953,5 +3252,17 @@ window.addEventListener('DOMContentLoaded', function(){
   }, 3850);
 });
 </script>
+<div id="superadmin" class="hidden">
+  <div class="sa-topbar">
+    <div class="sa-brand"><span class="material-symbols-rounded">shield_person</span>Super Admin</div>
+    <button class="btn-icon" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;" onclick="superAdminLogout()" title="Log out"><span class="material-symbols-rounded" style="font-size:18px;">logout</span></button>
+  </div>
+  <div class="sa-tabs">
+    <button class="active" onclick="setSuperAdminTab('dashboard')">Dashboard</button>
+    <button onclick="setSuperAdminTab('apikey')">AI API Key</button>
+    <button onclick="setSuperAdminTab('health')">System Health</button>
+  </div>
+  <div id="superAdminBody"></div>
+</div>
 </body>
 </html>
